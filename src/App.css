@@ -1,2 +1,47 @@
 .App {
 }
+.spacer {
+  height: 110vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.header {
+  border-bottom: 1px solid #e5e8e8;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.header_link {
+  padding: 20px;
+  color: #314d4a;
+  font-weight: bold;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+.selected {
+  border-bottom: 3px solid #11bb9a;
+  color: #11bb9a;
+}
+
+.section {
+  height: 70vh;
+}
+
+#Leadership {
+  background-color: #a388e8;
+}
+
+#Providers {
+  background-color: #f4769e;
+}
+
+#Operations {
+  background-color: #8face0;
+}
