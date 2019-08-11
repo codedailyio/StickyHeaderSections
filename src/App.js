@@ -33,7 +33,6 @@ function App() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const firstSection = sectionRefs[0];
-      const lastSection = sectionRefs[sectionRefs.length - 1];
 
       if (firstSection.ref.current) {
         const { offsetTop } = getDimensions(firstSection.ref.current);
