@@ -1,6 +1,10 @@
 .App {
 }
-.spacer {
+.top-spacer {
+  height: 50vh;
+}
+
+.bottom-spacer {
   height: 110vh;
 }
 
@@ -22,8 +26,10 @@
   padding: 20px;
   color: #314d4a;
   font-weight: bold;
+  border: none;
   border-bottom: 3px solid transparent;
-  margin-bottom: -1px;
+  cursor: pointer;
+  outline: none;
 }
 .selected {
   border-bottom: 3px solid #11bb9a;
@@ -31,7 +37,7 @@
 }
 
 .section {
-  height: 70vh;
+  height: 40vh;
 }
 
 #Leadership {

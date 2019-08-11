@@ -13,7 +13,11 @@ const getDimensions = ele => {
 };
 
 const scrollTo = ele => {
-  ele.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.scrollTo({
+    top: ele.offsetTop + 1,
+    behavior: "smooth",
+    block: "start",
+  });
 };
 
 function App() {
@@ -62,35 +66,38 @@ function App() {
   }, [visibleSection]);
   return (
     <div className="App">
-      <div className="spacer" />
+      <div className="top-spacer" />
 
       <div className="content">
         <div className="sticky">
           <div className="header">
-            <div
+            <button
+              type="button"
               className={`header_link ${visibleSection === "Leadership" ? "selected" : ""}`}
               onClick={() => {
                 scrollTo(document.getElementById("Leadership"));
               }}
             >
               Leadership
-            </div>
-            <div
+            </button>
+            <button
+              type="button"
               className={`header_link ${visibleSection === "Providers" ? "selected" : ""}`}
               onClick={() => {
                 scrollTo(document.getElementById("Providers"));
               }}
             >
               Providers
-            </div>
-            <div
+            </button>
+            <button
+              type="button"
               className={`header_link ${visibleSection === "Operations" ? "selected" : ""}`}
               onClick={() => {
                 scrollTo(document.getElementById("Operations"));
               }}
             >
               Operations
-            </div>
+            </button>
           </div>
         </div>
         <div className="section" id="Leadership" ref={leadershipRef} />
@@ -98,7 +105,7 @@ function App() {
         <div className="section" id="Operations" ref={operationsRef} />
       </div>
 
-      <div className="spacer" />
+      <div className="bottom-spacer" />
     </div>
   );
 }
