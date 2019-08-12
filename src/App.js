@@ -7,14 +7,14 @@ const getDimensions = ele => {
   const offsetBottom = offsetTop + height;
 
   return {
+    height,
     offsetTop,
     offsetBottom,
   };
 };
 
 const scrollTo = ele => {
-  window.scrollTo({
-    top: ele.offsetTop + 1,
+  ele.scrollIntoView({
     behavior: "smooth",
     block: "start",
   });
@@ -23,6 +23,7 @@ const scrollTo = ele => {
 function App() {
   const [visibleSection, setVisibleSection] = useState();
 
+  const headerRef = useRef(null);
   const leadershipRef = useRef(null);
   const providerRef = useRef(null);
   const operationsRef = useRef(null);
@@ -35,27 +36,22 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const firstSection = sectionRefs[0];
+      const { height: headerHeight } = getDimensions(headerRef.current);
+      const scrollPosition = window.scrollY + headerHeight;
 
-      if (firstSection.ref.current) {
-        const { offsetTop } = getDimensions(firstSection.ref.current);
-        if (scrollPosition < offsetTop && visibleSection !== undefined) {
-          setVisibleSection(undefined);
-        }
-      }
-
-      sectionRefs.forEach(({ section, ref }) => {
+      const selected = sectionRefs.find(({ section, ref }) => {
         const ele = ref.current;
         if (ele) {
           const { offsetBottom, offsetTop } = getDimensions(ele);
-          if (scrollPosition > offsetTop && scrollPosition < offsetBottom) {
-            if (visibleSection !== section) {
-              setVisibleSection(section);
-            }
-          }
+          return scrollPosition > offsetTop && scrollPosition < offsetBottom;
         }
       });
+
+      if (selected && selected.section !== visibleSection) {
+        setVisibleSection(selected.section);
+      } else if (!selected && visibleSection) {
+        setVisibleSection(undefined);
+      }
     };
 
     handleScroll();
@@ -70,12 +66,12 @@ function App() {
 
       <div className="content">
         <div className="sticky">
-          <div className="header">
+          <div className="header" ref={headerRef}>
             <button
               type="button"
               className={`header_link ${visibleSection === "Leadership" ? "selected" : ""}`}
               onClick={() => {
-                scrollTo(document.getElementById("Leadership"));
+                scrollTo(leadershipRef.current);
               }}
             >
               Leadership
@@ -84,7 +80,7 @@ function App() {
               type="button"
               className={`header_link ${visibleSection === "Providers" ? "selected" : ""}`}
               onClick={() => {
-                scrollTo(document.getElementById("Providers"));
+                scrollTo(providerRef.current);
               }}
             >
               Providers
@@ -93,7 +89,7 @@ function App() {
               type="button"
               className={`header_link ${visibleSection === "Operations" ? "selected" : ""}`}
               onClick={() => {
-                scrollTo(document.getElementById("Operations"));
+                scrollTo(operationsRef.current);
               }}
             >
               Operations
